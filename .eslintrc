@@ -1,0 +1,26 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "error",
+    "no-alert": "error",
+    "no-debugger": "error",
+    "no-eval": "error",
+    "no-unused-vars": ["error", { "args": "all", "argsIgnorePattern": "^_" }],
+    "comma-dangle": ["error", "always-multiline"],
+    "semi": ["error", "never"],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "arrow-parens": ["error", "always"],
+    "arrow-spacing": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+  }
+}
