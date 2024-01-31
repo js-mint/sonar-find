@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { getIssues } from "../src/index.js";
+import fs from "fs";
 
 const args = process.argv.slice(2);
 
@@ -13,11 +14,18 @@ const parsedArgs = args.reduce((acc, arg) => {
   return acc;
 }, {});
 
-const { organization, project_keys: projectKeys, token } = parsedArgs;
+const { organization, project_keys: projectKeys, token, output_file } = parsedArgs;
 
 if (organization && projectKeys && token) {
-  getIssues({ organization, projectKeys, token }).then(({ data: { issues } }) => {
-    process.stderr.write(issues);
+  getIssues({ organization, projectKeys, token }).then(({ data }) => {
+    const output = JSON.stringify(data);
+    if (output_file) {
+      fs.writeFile(output_file, output, (err) => {
+        if (err) throw err;
+        process.stderr.write(`Output has been written to ${output_file}`);
+      });
+    }
+    process.stderr.write(JSON.stringify(output));
   });
 } else {
   process.stderr.write("Missing or invalid arguments. Usage:\n");
